@@ -31,7 +31,7 @@ class GameScene extends Phaser.Scene {
             }
         }, this);
         new Button(this, 20, 20, "up-button", function() {
-            this.player.setVelocityY(-50);
+            
         });
     }
     createPlayer(object) {
