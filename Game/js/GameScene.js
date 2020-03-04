@@ -1,5 +1,7 @@
 class GameScene extends Phaser.Scene {
     map;
+    maxSpeed = 100;
+    currentSpeed;
     constructor() {
         super()
     }
@@ -7,6 +9,10 @@ class GameScene extends Phaser.Scene {
         this.load.image('tileset', 'assets/tilesheet_complete.png');
         this.load.tilemapTiledJSON('tilemap', 'assets/level1.json');
         this.load.image('player', 'assets/player.png');
+        this.load.image('up-button', 'assets/up.png');
+        this.load.image('down-button', 'assets/down.png');
+        this.load.image('left-button', 'assets/left.png');
+        this.load.image('right-button', 'assets/right.png');
     }
     create() {
         this.map = this.make.tilemap({
@@ -23,7 +29,10 @@ class GameScene extends Phaser.Scene {
             if (object.type === "playerSpawn") {
                 this.createPlayer(object);
             }
-        }, this)
+        }, this);
+        new Button(this, 20, 20, "up-button", function() {
+            this.player.setVelocityY(-50);
+        });
     }
     createPlayer(object) {
         this.player = this.physics.add.sprite(object.x, object.y, 'player');
@@ -31,3 +40,19 @@ class GameScene extends Phaser.Scene {
         this.cameras.main.startFollow(this.player, true, 0.05, 0.05);
     }
 }
+// class UIScene extends Phaser.Scene {
+//     constructor() {
+//         super('UIScene')
+//     }
+//     preload() {
+//         this.load.image('up-button', 'assets/up.png');
+//         this.load.image('down-button', 'assets/down.png');
+//         this.load.image('left-button', 'assets/left.png');
+//         this.load.image('right-button', 'assets/right.png');
+//     }
+//     createUIScene() {
+//         new Button(this, 10, 10, "up-button", function() {
+//             this.player.setVelocityY(-50)
+//         })
+//     }
+// }
